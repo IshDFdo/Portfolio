@@ -11,6 +11,60 @@ document.querySelectorAll(".nav-links a").forEach((link) => {
   });
 });
 
+const contactForm = document.querySelector(".contact-form");
+
+if (contactForm) {
+  contactForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const submitButton = contactForm.querySelector("button[type='submit']");
+    const originalButtonText = submitButton.textContent;
+
+    submitButton.textContent = "Sending...";
+    submitButton.disabled = true;
+
+    try {
+      const formData = new FormData(contactForm);
+      formData.set("_replyto", formData.get("email"));
+      formData.set("_subject", "New portfolio contact message");
+
+      const response = await fetch(contactForm.action, {
+        method: contactForm.method,
+        body: formData,
+        headers: {
+          Accept: "application/json",
+        },
+      });
+
+      if (response.ok) {
+        Swal.fire({
+          title: "Email sent successfully!",
+          icon: "success",
+          draggable: true,
+        });
+        contactForm.reset();
+      } else {
+        Swal.fire({
+          title: "Email was not sent",
+          text: "Please check your Formspree setup and try again.",
+          icon: "error",
+          draggable: true,
+        });
+      }
+    } catch (error) {
+      Swal.fire({
+        title: "Email was not sent",
+        text: "Please check your internet connection and try again.",
+        icon: "error",
+        draggable: true,
+      });
+    } finally {
+      submitButton.textContent = originalButtonText;
+      submitButton.disabled = false;
+    }
+  });
+}
+
 // Cursor Follower Animation
 const createCursorFollower = () => {
   const follower = document.createElement("div");
