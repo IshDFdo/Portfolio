@@ -780,12 +780,16 @@ textarea {
     scroll-snap-align: unset;
   }
 
+  .project-card:nth-child(even) {
+    grid-template-columns: 1fr;
+  }
+
   .project-card:nth-child(even) .project-visual {
-    order: initial;
+    order: 0;
   }
 
   .project-card:nth-child(even) .project-content {
-    order: initial;
+    order: 0;
   }
 
   .education-grid {
