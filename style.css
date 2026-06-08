@@ -400,6 +400,12 @@ pre {
   padding-left: 38px;
 }
 
+.timeline-role {
+  color: var(--muted);
+  margin: 8px 0 6px;
+  font-weight: 600;
+}
+
 .timeline-item + .timeline-item {
   margin-top: 34px;
 }
